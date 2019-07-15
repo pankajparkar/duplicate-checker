@@ -1,5 +1,6 @@
 import './DuplicateChecker.css';
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 const isValidRange = ([firstNum, secondNum]) => {
   return firstNum && secondNum && firstNum < secondNum;
@@ -18,17 +19,16 @@ const findDuplicates = (inputs, input, ranges) => {
 class DuplicateChecker extends Component {
   state = {
     input: '',
-    inputs: [7000,7001,7002,7003,7004,7005],
     messages: []
   }
   componentDidMount () {
-    const {inputs} = this.state;
+    const {inputs} = this.props;
     const inputsMap = new Map();
     inputs.forEach(i => inputsMap.set(i, i));
     this.setState({inputs: inputsMap})
   }
   onKeyDown = ({target: {value}}) => {
-    const {inputs} = this.state;
+    const {inputs} = this.props;
     // create number array
     // TODO: check below computation
     let trimmedNums = (value || '')
@@ -68,5 +68,9 @@ class DuplicateChecker extends Component {
     </React.Fragment>
   } 
 }
+
+DuplicateChecker.propTypes = {
+  inputs: PropTypes.array.isRequired,
+};
 
 export default DuplicateChecker;
