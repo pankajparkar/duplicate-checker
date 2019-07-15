@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import './App.css';
-import DuplicateChecker from './components/DuplicateChecker/DuplicateChecker';
+import './DuplicateChecker.css';
+import React, {Component} from 'react';
 
 const isValidRange = ([firstNum, secondNum]) => {
   return firstNum && secondNum && firstNum < secondNum;
@@ -17,7 +15,7 @@ const findDuplicates = (inputs, input, ranges) => {
   return [...new Set(matchedNumber.concat(matchedRange))];
 }
 
-class App extends Component {
+class DuplicateChecker extends Component {
   state = {
     input: '',
     inputs: [7000,7001,7002,7003,7004,7005],
@@ -59,20 +57,16 @@ class App extends Component {
     }
   }
   render() {
-    const {input, messages} = this.state;
-    return (
-      <div className="App">
-        <header>
-          <Navbar />
-        </header>
-        <section>
-          <article>
-            <DuplicateChecker />
-          </article>
-        </section>
-      </div>
-    );
-  }
+    const {input, messages} = this.state
+    return <React.Fragment>
+      <h3>Existing input</h3>
+      <textarea className="form-control" rows="6" onKeyDown={this.onKeyDown}></textarea>
+      {input}
+      <ul className="result">
+        {messages.map((m, index) => <li key={index}>{m}</li>)}
+      </ul>
+    </React.Fragment>
+  } 
 }
 
-export default App;
+export default DuplicateChecker;
