@@ -1,4 +1,4 @@
-# Range Maker
+# Duplicate Checker
 
 ## Problem Statement
 
