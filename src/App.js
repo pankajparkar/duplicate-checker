@@ -9,18 +9,16 @@ class App extends Component {
   }
   render() {
     const {inputs} = this.state;
-    return (
-      <div className="App">
-        <header>
-          <Navbar />
-        </header>
-        <section>
-          <article>
-            <DuplicateChecker inputs={inputs}/>
-          </article>
-        </section>
-      </div>
-    );
+    return <div className="App">
+      <header>
+        <Navbar />
+      </header>
+      <section>
+        <article>
+          <DuplicateChecker inputs={inputs}/>
+        </article>
+      </section>
+    </div>;
   }
 }
 

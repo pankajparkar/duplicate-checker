@@ -2,8 +2,8 @@ import './Navbar.css';
 import React from 'react';
 
 const Navbar = () => {
-  return <div class="topnav">
-    <a class="active">Range Matcher</a>
+  return <div className="topnav">
+    <a className="active">Range Matcher</a>
   </div>;
 }
 

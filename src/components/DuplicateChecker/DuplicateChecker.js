@@ -57,15 +57,16 @@ class DuplicateChecker extends Component {
     }
   }
   render() {
-    const {input, messages} = this.state
-    return <React.Fragment>
-      <h3>Existing input</h3>
-      <textarea className="form-control" rows="6" onKeyDown={this.onKeyDown}></textarea>
-      {input}
-      <ul className="result">
-        {messages.map((m, index) => <li key={index}>{m}</li>)}
-      </ul>
-    </React.Fragment>
+    const {messages} = this.state
+    const inputs = JSON.stringify(this.props.inputs);
+    return <div className="wrapper">
+        <h2>Existing input</h2>
+        {inputs}
+        <textarea className="form-control" rows="6" onKeyDown={this.onKeyDown}></textarea>
+        <ul className="result">
+          {messages.map((m, index) => <li key={index}>{m}</li>)}
+        </ul>
+    </div>
   } 
 }
 
