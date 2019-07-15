@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from './components/Navbar';
 import './App.css';
 
 const isValidRange = ([firstNum, secondNum]) => {
@@ -60,9 +61,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <nav>
-            Range Matcher
-          </nav>
+          <Navbar />
         </header>
         <section>
           <article>
