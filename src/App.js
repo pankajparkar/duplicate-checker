@@ -8,7 +8,9 @@ const isValidRange = ([firstNum, secondNum]) => {
 const findDuplicates = (inputs, input, ranges) => {
   const matchedNumber = input.filter(i => inputs.has(i));
   const values = Array.from(inputs.values());
-  const matchedRange = ranges.map(({start, end}) => values.filter(v => start >= v && v <= end)).flat()
+  const matchedRange = ranges.map(({start, end}) => 
+    values.filter(v => start <= v && v <= end)
+  ).flat()
   // merge duplicate to unique
   return [...new Set(matchedNumber.concat(matchedRange))];
 }
@@ -49,7 +51,7 @@ class App extends Component {
     if(duplicates.length) {
       const {messages} = this.state
       messages.push(duplicates.join(', '))
-      // this.setState({messages: messages})
+      this.setState({messages: [duplicates.join(', ')]})
       console.log(nums, value, duplicates)
     }
   }
