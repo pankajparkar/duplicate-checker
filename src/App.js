@@ -5,10 +5,12 @@ const isValidRange = ([firstNum, secondNum]) => {
   return firstNum && secondNum && firstNum < secondNum;
 }
 
-// sample - [6098, 6009, 7000, 7001, 7002, 7003]
-
-const findDuplicates = (inputs, input) => {
-  return input.filter(i => inputs.has(i))
+const findDuplicates = (inputs, input, ranges) => {
+  const matchedNumber = input.filter(i => inputs.has(i));
+  const values = Array.from(inputs.values());
+  const matchedRange = ranges.map(({start, end}) => values.filter(v => start >= v && v <= end)).flat()
+  // merge duplicate to unique
+  return [...new Set(matchedNumber.concat(matchedRange))];
 }
 
 class App extends Component {
@@ -26,25 +28,23 @@ class App extends Component {
     const {inputs} = this.state;
     // create number array
     // TODO: check below computation
-    let nums = (value || '')
-      .split(',')
-      .map(n => n.trim())
-      .filter(n => n),
-      pureNums = nums
-      .map(Number);
-    const duplicates = findDuplicates(inputs, pureNums)
+    let trimmedNums = (value || '')
+        .split(',')
+        .map(n => n.trim()),
+      nums = trimmedNums
+        // Remove variable that has - in it
+        .filter(n => n && n.split('-').length !== 2),
+      pureNums = nums.map(Number);
+
     // determine range and replace it with the numbers
     // TODO: search multiple ranges
-    const range = nums.find(n => n.indexOf('-') !== -1) || '';
-    let rangeNumbers = [],
-      splitByDash = range.split('-').filter(i => i);
-    if (splitByDash.length) {
-      rangeNumbers = splitByDash.map(Number);
-    }
-    // is Valid range
-    if (isValidRange(rangeNumbers)) {
-      console.log('from ', rangeNumbers[0], ' to', rangeNumbers[1])
-    }
+    const ranges = trimmedNums
+      .map(n => n.split('-'))
+      .filter(r => r.length === 2 && isValidRange(r))
+      .map(([start, end]) => ({ start: Number(start), end: Number(end) }));
+
+    const duplicates = findDuplicates(inputs, pureNums, ranges)
+    
     // const 
     if(duplicates.length) {
       const {messages} = this.state
