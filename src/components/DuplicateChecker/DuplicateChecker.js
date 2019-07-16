@@ -2,6 +2,8 @@ import './DuplicateChecker.css';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+const regex = /^[0-9]+(-[0-9]+)?(,[0-9]+(-[0-9]+)?)*$/
+
 const isValidRange = ([firstNum, secondNum]) => {
   return firstNum && secondNum && firstNum < secondNum;
 }
@@ -28,7 +30,9 @@ class DuplicateChecker extends Component {
     this.setState({inputs: inputsMap})
   }
   onKeyDown = ({target: {value}}) => {
-    const {inputs} = this.props;
+    const withoutSpace = (value || '').replace(/\s/g, '')
+    const isValid = regex.test(withoutSpace)
+    const {inputs} = this.state;
     // create number array
     // TODO: check below computation
     let trimmedNums = (value || '')
@@ -38,7 +42,7 @@ class DuplicateChecker extends Component {
         // Remove variable that has - in it
         .filter(n => n && n.split('-').length !== 2),
       pureNums = nums.map(Number);
-
+    console.log('isValid', isValid)
     // determine range and replace it with the numbers
     // TODO: search multiple ranges
     const ranges = trimmedNums
