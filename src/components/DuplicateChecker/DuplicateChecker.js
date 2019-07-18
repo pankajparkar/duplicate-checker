@@ -2,7 +2,8 @@ import './DuplicateChecker.css';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-const regex = /^[0-9]+(-[0-9]+)?(,[0-9]+(-[0-9]+)?)*$/
+const validInputRegx = /^[0-9]+(-[0-9]+)?(,[0-9]+(-[0-9]+)?)*$/
+const rangeRegx = /([0-9]+-[0-9]+)*/
 
 const isValidRange = ([firstNum, secondNum]) => {
   return firstNum && secondNum && firstNum < secondNum;
@@ -31,7 +32,7 @@ class DuplicateChecker extends Component {
   }
   onKeyDown = ({target: {value}}) => {
     const withoutSpace = (value || '').replace(/\s/g, '')
-    const isValid = regex.test(withoutSpace)
+    const isValid = validInputRegx.test(withoutSpace)
     const {inputs} = this.state;
     // create number array
     // TODO: check below computation
